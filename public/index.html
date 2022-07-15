@@ -1,0 +1,159 @@
+
+
+
+<!DOCTYPE html>
+<header>
+    <title> TAREAS </title>
+    <h2>  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp INGRESE UNA TAREA </H2>
+    <style>
+        *{padding: 0;
+        margin: 10px;
+    background-color: rgb(253, 253, 4);}
+        
+        
+        .ingresotarea {
+            width: 90%;
+            padding:30px ;
+            margin: auto;
+            margin-top: 5px;
+            border-radius: 1px;
+            font-family: 'calibri';
+            color: rgb(1, 1, 1);
+
+        }
+        
+        .ingresotarea .tarea{
+            width: 70%;
+            height: 14px;
+            background: #f8f7f6;
+            margin: auto;
+            border-radius: 4px;
+            font-family: 'calibri';
+            font-size: 14px;
+            color: rgb(1, 1, 1);
+        }
+
+
+        .ingresotarea .boton{
+            width: 70%;
+            background:#4a4a52 ;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            padding: 1px;
+            font-size: 12px;
+            margin: 16px 0 ;
+        }
+
+        
+        
+        .ingresotarea .boton:hover{
+            color: white;
+            text-decoration: underline;
+            background: #8e376b;
+            }
+        
+       .ingresotarea .listatareas .boton:active{
+                color: rgb(12, 3, 3);
+                text-decoration: underline;
+                background: #b96750;
+                } 
+    .listatareas {
+            width: 90%;
+            padding:10px ;
+            margin: 0px;
+            margin-top: 1px;
+            border-radius: 4px;
+            font-family: 'calibri';
+            color: rgb(1, 1, 1);
+            
+        }      
+        
+        .listatareas .tarea{
+            width: 100%;
+            margin:AUTO;
+            font-size: 14px;
+            font-weight: 50%;
+            background-color: rgb(247, 243, 2);
+            border: 30% rgb(0, 0, 0);
+            font-family: 'calibri';
+            float:right;
+            margin:3px;
+            color: rgb(1, 1, 1);
+
+        }     
+        
+        .listatareas .eliminar{
+            width: 60px;
+            position:relative;
+            left:-1%;
+            background:#cf2121 ;
+            border-radius: 14px;
+            color: rgb(255, 255, 255);
+            float: left;
+            font-size: 7px;
+            margin:0px;
+        }
+
+        .listatareas .check{
+            width: 15px;
+            position:relative;
+            left:-1%;
+            background:#02fff2 ;
+            border-radius: 14px;
+            color: rgb(245, 244, 244);
+            float: left;
+            font-size: 7px;
+            margin:0px;
+        }
+        
+        
+    
+                </style>
+
+
+</header>
+<body>
+    <form class="ingresotarea" action="/add" method="GET">
+       <input class='tarea' type="text"  
+    name="tarea" maxlength="24"  id="tarea" placeholder="tarea" 
+    required>
+    
+    <select name="prioridad" id="prioridad">
+        <option value="3">prioridad alta</option>
+        <option value="2">prioridad media</option>
+        <option value="1">prioridad baja</option>
+      </select>
+    <input class='boton' type="submit" value="Agregar" >
+    
+ </form>
+<div class="listatareas" id="lista">
+ <!-- <div class="tarea"> hola
+        <button class="eliminar" type ="submit" id="id" name="id" value="">eliminar</button></form>
+    </div>
+
+    <div class="tarea"> hola
+        <button class="eliminar" type ="submit" id="id" name="id" value="">eliminar</button></form>
+    </div> -->
+</div>
+</body>
+<script type="text/javascript" languaje="javascript">
+
+var main=document.getElementById("lista");
+fetch('http://127.0.0.1:3000/view.json')
+.then(response => response.json())
+.then(data => 
+{ //document.getElementById('texto').innerHTML=data[1].nombre;
+   for (var i=0 ; i<data.length;i++){
+    var div = document.createElement("div");
+        div.setAttribute('class','tarea');
+        div.innerHTML = '<form action="/delete" method="GET">'+
+            '<button class="eliminar" type ="submit" id="id" name="id" value="'+ data[i].id +'">X</button>'+
+            '</form>' + data[i].tarea;
+        main.appendChild(div);}
+}
+)
+
+
+</script>
+</html>
